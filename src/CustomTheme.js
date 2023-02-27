@@ -1,14 +1,17 @@
 import { createTheme,ThemeProvider } from "@mui/material"
 import { lightGreen } from "@mui/material/colors";
 import { blueGrey } from "@mui/material/colors";
-// const TEAL_COLOR = '#17637B';
+// "#a5949c"
+//#553e52
+
+
 const theme = createTheme({
   palette: {
     primary: {
-      main: lightGreen[500],
+      main: "#5d756c",
     },
     secondary:{
-        main:blueGrey[500]
+        main:"#755d66",
     }
   },
 });

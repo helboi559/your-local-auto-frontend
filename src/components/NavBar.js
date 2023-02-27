@@ -1,4 +1,4 @@
-import { LoginSharp, Menu , LocalMallSharp } from '@mui/icons-material'
+import { AccountCircleSharp, Menu , CarRepairSharp } from '@mui/icons-material'
 import { AppBar, Box, Button, Container, IconButton, Toolbar, Typography } from '@mui/material'
 
 import React, { useState } from 'react'
@@ -11,11 +11,12 @@ const NavBar = () => {
     const user = {
         name:'test',
         }
+    const FUSCHIA = '#9b5284';
   return (
     //Similar as Navbar
     <>
     
-    <AppBar>
+    <AppBar color="primary">
         {/* creates top colored bar  */}
         <Container maxWidth='xl'>
             {/* disable padding on toolbar*/}
@@ -37,8 +38,8 @@ const NavBar = () => {
                     </IconButton>
                 </Box>
                 {/* defualt icon  */}
-                 <LocalMallSharp 
-                 
+                 <CarRepairSharp 
+                 style={{color:FUSCHIA}}
                  fontSize='large'
                  sx={{mr:1}}
                  />
@@ -51,7 +52,7 @@ const NavBar = () => {
                         display: {xs:'none',md:"flex"}
                     }}
                     >
-                        Ecommerce Store
+                        Your Local Auto
                 </Typography>
                 <Typography
                     variant='h6'
@@ -62,12 +63,12 @@ const NavBar = () => {
                         display: {xs:'flex',md:"none"}
                     }}
                     >
-                        Ecommerce Store
+                        Your Local Auto
                 </Typography>
                 {!currentUser ? (
                     <Button
                     color='inherit'
-                    startIcon={<LoginSharp/>}
+                    startIcon={<AccountCircleSharp/>}
                     //onclick, state is set to true to open UserLogin component
                     onClick={()=> dispatch({type:"OPEN_LOGIN"})}
                 >

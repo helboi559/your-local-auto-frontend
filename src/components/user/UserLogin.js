@@ -95,7 +95,7 @@ const UserLogin = () => {
                     <PasswordFields passwordRef={confirmPasswordRef} label="Confirm Password" id="confirmPassword"/>
                 )}
                 <DialogActions sx={{px:'20px'}}>
-                    <Button type='submit' variant='contained' endIcon={<Send/>}>
+                    <Button type='submit' variant='contained' color='secondary' endIcon={<Send/>}>
                         Submit
                     </Button>
                     
@@ -109,8 +109,8 @@ const UserLogin = () => {
                 {isRegistered ? 'Login' : 'Register'}
             </Button>   
         </DialogActions>
-        <DialogActions sx={{ justifyContent: 'center', py: '24px' }}>
-            <GoogleOneTapLogin />
+        <DialogActions sx={{ justifyContent: 'center', py: '24px'}}>
+            <GoogleOneTapLogin/>
         </DialogActions>
 
     </Dialog>
