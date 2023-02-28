@@ -1,4 +1,4 @@
-import { ShoppingCartOutlined } from '@mui/icons-material'
+import { NotificationsOutlined } from '@mui/icons-material'
 import { Avatar, Badge, Box, IconButton, Tooltip } from '@mui/material'
 import React, { useState } from 'react'
 import { useValue } from '../../context/ContextProvider'
@@ -13,10 +13,10 @@ const UserIcons = () => {
     const [anchorUserMenu, setAnchorUserMenu] = useState(null);
     return (
     <Box>
-    {/* shoppingcart icon  */}
+    {/* notifications icon  */}
       <IconButton size="large" color="inherit">
         <Badge color="error" badgeContent={20}>
-          <ShoppingCartOutlined />
+          <NotificationsOutlined />
         </Badge>
       </IconButton>
       <Tooltip title="Open User Settings">
