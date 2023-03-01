@@ -12,7 +12,8 @@ const initialState = {
     currentUser:null,
     loading:false,
     alert:{open:false,severity:'info',message:''},
-    profile:{open:false, file:null , photoURL:''}
+    profile:{open:false, file:null , photoURL:''},
+    section:0,
 }
 
 const Context = createContext(initialState)
@@ -22,6 +23,7 @@ export const useValue = () => {
 }
 const ContextProvider = ({children}) => {
     const [state,dispatch] = useReducer(reducer,initialState)
+    console.log("section",state.section)
     useEffect(()=> {
       const currentUser = JSON.parse(localStorage.getItem('currentUser'))
       if(currentUser) {

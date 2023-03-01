@@ -15,6 +15,8 @@ const reducer = (state,action) => {
             return { ...state, alert: action.payload };
         case 'UPDATE_PROFILE':
             return { ...state, profile: action.payload };
+        case 'UPDATE_SECTION':
+            return { ...state, section: action.payload };
         default:
             throw new Error('No action matched!')
     }
