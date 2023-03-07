@@ -1,4 +1,4 @@
-import { ChevronLeftOutlined, Inventory, People, Receipt } from '@mui/icons-material';
+import { Build, CalendarMonth, ChevronLeftOutlined, Inventory, People, Receipt } from '@mui/icons-material';
 import { Box, Divider, Drawer, IconButton, List, ListItem, ListItemButton, ListItemIcon, ListItemText, styled } from '@mui/material'
 import React from 'react'
 import { useValue } from '../context/ContextProvider';
@@ -68,6 +68,26 @@ const SideBar = ({isOpen,setIsOpen}) => {
                   <Receipt/>
                 </ListItemIcon>
                 <ListItemText primary="Invoices" />
+              </ListItemButton>
+            </ListItem>
+            <ListItem  >
+              <ListItemButton onClick={()=> {
+                dispatch({ type: 'UPDATE_SECTION', payload: 3 });
+              }}>
+                <ListItemIcon>
+                  <Build/>
+                </ListItemIcon>
+                <ListItemText primary="Service" />
+              </ListItemButton>
+            </ListItem>
+            <ListItem  >
+              <ListItemButton onClick={()=> {
+                dispatch({ type: 'UPDATE_SECTION', payload: 4 });
+              }}>
+                <ListItemIcon>
+                  <CalendarMonth/>
+                </ListItemIcon>
+                <ListItemText primary="Appointments" />
               </ListItemButton>
             </ListItem>
         </List>

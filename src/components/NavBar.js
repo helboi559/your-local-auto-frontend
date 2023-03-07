@@ -1,4 +1,4 @@
-import { AccountCircleSharp, Menu , CarRepairSharp, People, Inventory2, Receipt } from '@mui/icons-material'
+import { AccountCircleSharp, Menu , CarRepairSharp, People, Inventory2, Receipt, Build, CalendarMonth } from '@mui/icons-material'
 import { AppBar, BottomNavigation, BottomNavigationAction, Box, Button, Container, IconButton, Paper, Toolbar, Typography } from '@mui/material'
 import React, { useState, useEffect, useRef} from 'react'
 import { useValue } from '../context/ContextProvider'
@@ -7,7 +7,8 @@ import Inventory from './inventory/Inventory'
 import Customers from './customers/Customers'
 import Invoices from './invoices/Invoices'
 import SideBar from './SideBar'
-
+import Service from './service/Service'
+import Appointments from './appointments/Appointments'
 const NavBar = () => {
     const {state:{currentUser,section},dispatch} = useValue()
     // const [section,setSection] = useState(0)
@@ -26,9 +27,12 @@ const NavBar = () => {
      {
             {
 
-            0: <Inventory/>,
-            1: <Customers/>,
+            0: <Customers/>,
+            1: <Inventory/>,
             2: <Invoices />,
+            3: <Service/>,
+            4: <Appointments/>,
+
             }[section]
         }
     <AppBar  color="primary">
@@ -102,17 +106,19 @@ const NavBar = () => {
     <Paper
         elevation={3}
         sx={{position:"fixed", bottom:0,left:0,right:0,zIndex:1, 
-        display: { xs: 'none', sm: 'block', md: 'none' }}}
-        // sx={{ display: { xs: 'block', sm: 'none', md: 'block' } }}
+        display: { xs: 'block', sm: 'none', md: 'none' }}}
+        
     >
         <BottomNavigation
         showLabels
         value={section}
         onChange={(e,newValue)=> dispatch({type:'UPDATE_SECTION',payload:newValue}) }
         >
+            <BottomNavigationAction label="Customers" icon={<People/>}/>
             <BottomNavigationAction label="Inventory" icon={<Inventory2/>}/>
-            <BottomNavigationAction label="Customer" icon={<People/>}/>
             <BottomNavigationAction label="Invoices" icon={<Receipt/>}/>
+            <BottomNavigationAction label="Service" icon={<Build/>}/>
+            <BottomNavigationAction label="Appointments" icon={<CalendarMonth/>}/>
         </BottomNavigation>
     </Paper>
     <SideBar {...{isOpen,setIsOpen}}/>
