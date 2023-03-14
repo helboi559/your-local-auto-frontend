@@ -14,6 +14,9 @@ const initialState = {
     alert:{open:false,severity:'info',message:''},
     profile:{open:false, file:null , photoURL:''},
     section:0,
+    customers:[],
+    customer:null,
+    
 }
 
 const Context = createContext(initialState)

@@ -9,6 +9,7 @@ import Invoices from './invoices/Invoices'
 import SideBar from './SideBar'
 import Service from './service/Service'
 import Appointments from './appointments/Appointments'
+import Protected from './protected/Protected'
 const NavBar = () => {
     const {state:{currentUser,section},dispatch} = useValue()
     // const [section,setSection] = useState(0)
@@ -26,12 +27,12 @@ const NavBar = () => {
     
      {
             {
-
-            0: <Customers/>,
-            1: <Inventory/>,
-            2: <Invoices />,
-            3: <Service/>,
-            4: <Appointments/>,
+                
+            0: <Protected><Customers/></Protected>,
+            1: <Protected><Inventory/></Protected>,
+            2: <Protected><Invoices /></Protected>,
+            3: <Protected><Service/></Protected>,
+            4: <Protected><Appointments/></Protected>,
 
             }[section]
         }
