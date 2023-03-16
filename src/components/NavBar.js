@@ -106,7 +106,7 @@ const NavBar = () => {
     
     <Paper
         elevation={3}
-        sx={{position:"fixed", bottom:0,left:0,right:0,zIndex:1, 
+        sx={{position:"fixed", bottom:0,left:0,right:0,zIndex:0, 
         display: { xs: 'block', sm: 'none', md: 'none' }}}
         
     >
@@ -115,11 +115,11 @@ const NavBar = () => {
         value={section}
         onChange={(e,newValue)=> dispatch({type:'UPDATE_SECTION',payload:newValue}) }
         >
-            <BottomNavigationAction label="Customers" icon={<People/>}/>
-            <BottomNavigationAction label="Inventory" icon={<Inventory2/>}/>
-            <BottomNavigationAction label="Invoices" icon={<Receipt/>}/>
+            <BottomNavigationAction sx={{mr:-1}}label="Customers" icon={<People/>}/>
+            <BottomNavigationAction sx={{mr:-1}}label="Inventory" icon={<Inventory2/>}/>
+            <BottomNavigationAction sx={{mr:-1}}label="Invoices" icon={<Receipt/>}/>
             <BottomNavigationAction label="Service" icon={<Build/>}/>
-            <BottomNavigationAction label="Appointments" icon={<CalendarMonth/>}/>
+            <BottomNavigationAction sx={{mr:1}} label="Appointments" icon={<CalendarMonth/>}/>
         </BottomNavigation>
     </Paper>
     <SideBar {...{isOpen,setIsOpen}}/>

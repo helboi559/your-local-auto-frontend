@@ -14,11 +14,11 @@ const UserIcons = () => {
     return (
     <Box>
     {/* notifications icon  */}
-      <IconButton size="large" color="inherit">
+      {/* <IconButton size="large" color="inherit">
         <Badge color="error" badgeContent={20}>
           <NotificationsOutlined />
         </Badge>
-      </IconButton>
+      </IconButton> */}
       <Tooltip title="Open User Settings">
         <IconButton onClick={(e) => setAnchorUserMenu(e.currentTarget)}>
             

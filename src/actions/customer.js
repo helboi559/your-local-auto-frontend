@@ -19,3 +19,28 @@ export const createCustomer = async (customer, dispatch) => {
         }
     dispatch({ type: "END_LOADING" });
 };
+
+
+// fetch customers from db
+export const getCustomers = async (dispatch) => {
+    // dispatch({ type: "START_LOADING" });
+    const result = await fetchData(
+        { url: url + "/all" ,
+          method: "GET"
+        }, dispatch);
+    if (result) {
+        dispatch({ type: "UPDATE_CUSTOMERS", payload: result });
+        }
+};
+
+
+export const updateCustomer = async (updatedFields, _id, dispatch) => {
+  return fetchData(
+    {
+      url: `${url}/update-customer/${_id}`,
+      method: 'PATCH',
+      body: updatedFields,
+    },
+    dispatch
+  );
+};
