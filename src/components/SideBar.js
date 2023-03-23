@@ -45,9 +45,10 @@ const SideBar = ({isOpen,setIsOpen}) => {
                 dispatch({ type: 'UPDATE_SECTION', payload: 0 });
               }}>
                 <ListItemIcon>
-                  <Inventory/>
+
+                  <People/>
                 </ListItemIcon>
-                <ListItemText primary="Inventory" />
+                <ListItemText primary="Customers" />
               </ListItemButton>
             </ListItem>
              <ListItem  >
@@ -55,9 +56,10 @@ const SideBar = ({isOpen,setIsOpen}) => {
                 dispatch({ type: 'UPDATE_SECTION', payload: 1 });
               }}>
                 <ListItemIcon>
-                  <People/>
+                  <Inventory/>
+                  
                 </ListItemIcon>
-                <ListItemText primary="Customer" />
+                <ListItemText primary="Inventory" />
               </ListItemButton>
             </ListItem>
              <ListItem  >

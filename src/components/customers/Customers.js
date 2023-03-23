@@ -6,6 +6,7 @@ import { getCustomers } from '../../actions/customer'
 import { useValue } from '../../context/ContextProvider'
 import AddCustomer from './AddCustomer'
 import CustomerActions from './CustomerActions';
+import clsx from 'clsx';
 
 //export feature
 function CustomToolbar() {
@@ -35,13 +36,23 @@ const Customers = () => {
         editable: 'true',
         width: 150,
       },
-      { field: 'custEmail', headerName: 'Customer Email', width: 150 ,},
+      { field: 'custEmail', headerName: 'Customer Email', width: 130 ,},
       { field: 'custPhone', headerName: 'Customer Phone', width: 65 },
       { field: 'active',
         headerName: 'Active',
         type: 'boolean',
         editable: true,
-        width: 65
+        width: 65,
+        cellClassName: (params) => {
+          if (params.value == null) {
+            return '';
+          }
+
+          return clsx('super-app', {
+            false: params.value === false,
+            true: params.value === true,
+          });
+      }
       },
       {
         field: 'actions',
@@ -64,12 +75,23 @@ const Customers = () => {
     }
   },[])
   // console.log(rowId)
+  
   return (
     <Box
     sx={{
       height:500,
       width:'100%',
-      mt:10,mb:4
+      mt:10,mb:4,
+      '& .super-app.false': {
+          backgroundColor: '#d47483',
+          color: '#1a3e72',
+          fontWeight: '600',
+        },
+      '& .super-app.true': {
+        backgroundColor: 'rgba(157, 255, 118, 0.49)',
+        color: '#1a3e72',
+        fontWeight: '600',
+      },
     }}
     >
         <Container
@@ -88,9 +110,14 @@ const Customers = () => {
                 />
             </Typography>
             
-          
-          <Fab size="small" color='secondary' variant='extended' onClick={handleClick}>
+          {/* responsive desktop add customer button */}
+          <Fab size="medium" color='secondary' variant='extended' onClick={handleClick} sx={{display:{ xs: 'none', sm: 'flex', md: 'flex' }}}>
               <Add sx={{mr:1}}/>
+              Add Customer
+          </Fab>
+          {/* responsive mobile add customer button */}
+          <Fab size="small" color='secondary' variant='extended' onClick={handleClick} sx={{display:{ xs: 'flex', sm: 'none', md: 'none' }}}>
+              <Add sx={{mr:0.5}}/>
               Add Customer
           </Fab>
           <AddCustomer open={open} handleClose={handleClose}/>
@@ -115,6 +142,7 @@ const Customers = () => {
         //       theme.palette.mode === 'dark' ? 'rgb(38, 50, 56)' : '#fff',
         //   },
         // }}
+        
         onCellEditStop={(params) => setRowId(params.id)}
         disableColumnFilter
         disableColumnSelector

@@ -21,7 +21,7 @@ const CustomerActions = ({params, rowId, setRowId}) => {
             setRowId(null)
             //update the customer in the customers array
             getCustomers(dispatch)
-            setLoading(false)
+            // setLoading(false)
         }
         setLoading(false)
     }
