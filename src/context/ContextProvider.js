@@ -5,7 +5,9 @@ import {
     useEffect
 } from 'react'
 import reducer from './reducer'
-
+import { LocalizationProvider } from '@mui/x-date-pickers'
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import dayjs from 'dayjs';
 
 const initialState = {
     openLogin:false,
@@ -16,6 +18,9 @@ const initialState = {
     section:0,
     customers:[],
     customer:null,
+    appointments:[],
+    appointment:null,
+    
     
 }
 
@@ -34,9 +39,11 @@ const ContextProvider = ({children}) => {
       }
     },[])
   return (
-    <Context.Provider value={{state,dispatch}}>
-        {children}
-    </Context.Provider>
+    <LocalizationProvider dateAdapter={AdapterDayjs}>
+      <Context.Provider value={{state,dispatch}}>
+          {children}
+      </Context.Provider>
+    </LocalizationProvider>
   )
 }
 

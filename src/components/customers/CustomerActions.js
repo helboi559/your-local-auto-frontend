@@ -28,11 +28,12 @@ const CustomerActions = ({params, rowId, setRowId}) => {
 
     
      useEffect(() => {
-    if (rowId === params.id && success) setSuccess(false);
+      if (rowId !== params.id && success) setSuccess(false);
   }, [rowId]);
     // console.log("loading", loading)
     // console.log("params.id", params.id)
-    // console.log("rowId", rowId)
+    // console.log("success", success)
+    // console.log("compare", params.id !== rowId || loading)
     return (
     <Box
       sx={{

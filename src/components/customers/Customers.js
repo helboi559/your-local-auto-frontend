@@ -143,7 +143,8 @@ const Customers = () => {
         //   },
         // }}
         
-        onCellEditStop={(params) => setRowId(params.id)}
+        // onCellEditStop={(params) => setRowId(params.id)}
+        onCellEditStart={(params) => setRowId(params.id)}
         disableColumnFilter
         disableColumnSelector
         disableDensitySelector
