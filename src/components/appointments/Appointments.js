@@ -1,17 +1,26 @@
 import { Add, CalendarMonth } from '@mui/icons-material'
 import { Box, Container, Fab, Typography } from '@mui/material'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { getCustomers } from '../../actions/customer'
+import { fetchServices } from '../../actions/service'
+import { useValue } from '../../context/ContextProvider'
 import AddAppointment from './AddAppointment'
 
 const Appointments = () => {
   const [open, setOpen] = useState(false)
-
+  const {state:{services},dispatch} = useValue()
   const handleClick = () => {
     setOpen(true)
+    fetchServices(dispatch)
+    
   }
   const handleClose = () => {
     setOpen(false)
   }
+  // useEffect(() => {
+  //   if(services.length === 0) fetchServices(dispatch);
+  // }, [])
+  // console.log("services",services)
   return (
     <Box
     sx={{

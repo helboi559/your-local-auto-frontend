@@ -21,6 +21,10 @@ const reducer = (state,action) => {
             return { ...state, customers: action.payload };
         case 'UPDATE_CUSTOMER':
             return { ...state, customer: action.payload };
+        case "UPDATE_SERVICES":
+            return { ...state, services: action.payload };
+        case "UPDATE_SERVICE":
+            return { ...state, service: action.payload };
         default:
             throw new Error('No action matched!')
     }

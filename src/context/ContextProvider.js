@@ -20,7 +20,8 @@ const initialState = {
     customer:null,
     appointments:[],
     appointment:null,
-    
+    services:[],
+    service:null,
     
 }
 

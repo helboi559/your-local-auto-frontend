@@ -4,16 +4,21 @@ import React, { useState } from 'react'
 import { useValue } from '../../context/ContextProvider'
 
 const AddAppointment = ({open,handleClose}) => {
-    const {state:{customers,customer},dispatch} = useValue()
+    const {state:{customers,customer,services,service},dispatch} = useValue()
     // const [selectedCustomer, setSelectedCustomer] = useState(null);
     // console.log("customers",customers)
     //when dialog is clicked render the calendar with available timeslots per selected day
     //take selected customer name and email and phone number and update the state of customer
     //when time slot is clicked, activate confirm button to the appointment.
-    const handleObjectChange = (event, newValue) => {
+    const handleCustChange = (event, newValue) => {
         // setSelectedCustomer(newValue);
         dispatch({type:'UPDATE_CUSTOMER',payload:newValue})
     }
+    const handleServiceChange = (event, newValue) => {
+        // setSelectedCustomer(newValue);
+        dispatch({type:'UPDATE_SERVICE',payload:newValue})
+    }
+    console.log("services",services)
     return (
     <Dialog open={open} onClose={handleClose}>
         <DialogTitle>New Appointment</DialogTitle>
@@ -28,7 +33,7 @@ const AddAppointment = ({open,handleClose}) => {
                     value={customer}
                     options={customers}
                     getOptionLabel={(option) => option.custName}
-                    onChange={handleObjectChange}
+                    onChange={handleCustChange}
                     sx={{ width: 300 }}
                     renderInput={(params) => <TextField {...params} label="Customer Name" />}
                     renderOption={(props,option) => (
@@ -45,31 +50,40 @@ const AddAppointment = ({open,handleClose}) => {
                         Customer Phone : {customer?.custPhone}
                     </DialogContentText>
                 )}
-                {/* <DatePicker/> */}
+            </DialogContent>
+            <DialogContent dividers>
+                <Autocomplete
+                    disablePortal
+                    value={service}
+                    options={services}
+                    getOptionLabel={(option) => option.jobDescription}
+                    onChange={handleServiceChange}
+                    sx={{ width: 300 }}
+                    renderInput={(params) => <TextField {...params} label="Service/Complaint" />}
+                    renderOption={(props,option) => (
+                        <div {...props}>
+                            {option.jobDescription}
+                        </div>
+                    )}
+                />
+                <DatePicker/>
                 {/* <MobileDatePicker/> */}
-                <DateTimePicker
                 
-                />
                 
-                <TextField
-                    margin='normal'
-                    autoFocus
-                    fullWidth
-                    label="Phone Number"
-                    id='phoneNumber'
-                    type={'tel'}
-                    // inputRef={custPhoneRef}
-                />
+               
+            </DialogContent>
+                
                 <DialogActions>
                     <Button type='submit' variant='contained' color='secondary' >
                         Submit
                     </Button>
                 </DialogActions>
-            </DialogContent>
+            
         </form>
         <DialogActions>
             <Button onClick={handleClose}>Cancel</Button>
         </DialogActions>
+        
     </Dialog>
   )
 }
