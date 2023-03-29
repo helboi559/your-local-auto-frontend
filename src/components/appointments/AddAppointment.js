@@ -1,10 +1,11 @@
 import { Autocomplete, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField } from '@mui/material'
 import { DatePicker, DateTimePicker, MobileDatePicker } from '@mui/x-date-pickers'
 import React, { useState } from 'react'
+import { createAppointment} from '../../actions/appointment'
 import { useValue } from '../../context/ContextProvider'
 
 const AddAppointment = ({open,handleClose}) => {
-    const {state:{customers,customer,services,service},dispatch} = useValue()
+    const {state:{customers,customer,services,service,appointmentCalendar:{date}},dispatch} = useValue()
     // const [selectedCustomer, setSelectedCustomer] = useState(null);
     // console.log("customers",customers)
     //when dialog is clicked render the calendar with available timeslots per selected day
@@ -18,11 +19,27 @@ const AddAppointment = ({open,handleClose}) => {
         // setSelectedCustomer(newValue);
         dispatch({type:'UPDATE_SERVICE',payload:newValue})
     }
-    console.log("services",services)
+    const handleSubmit = (e) => {
+        // console.log("customer",customer)
+        // console.log("service",service)
+        e.preventDefault()
+        const appointment= {
+            date:date.$d,
+            jobDescription:service.jobDescription,
+            custName:customer.custName,
+            custEmail:customer.custEmail,
+            plannedTime:service.plannedTime,
+            partsCost:service.partsCost,
+        }
+        console.log("appointment",appointment)
+        createAppointment(appointment,dispatch)
+        // console.log("service",service)
+    }
+    // console.log("appointments",appointments)
     return (
     <Dialog open={open} onClose={handleClose}>
         <DialogTitle>New Appointment</DialogTitle>
-        <form >
+        <form onSubmit={handleSubmit}>
             <DialogContent dividers>
                 <DialogContentText>
                     Fill out the form below to create an Appointment
@@ -66,7 +83,14 @@ const AddAppointment = ({open,handleClose}) => {
                         </div>
                     )}
                 />
-                <DatePicker/>
+                <DatePicker
+                    label="Appointment Date"
+                    value={date}
+                    onChange={(newDate) => {
+                        dispatch({type:'UPDATE_APPOINTMENT_CALENDAR',payload:{date:newDate}})
+                    }}
+                    
+                />
                 {/* <MobileDatePicker/> */}
                 
                 

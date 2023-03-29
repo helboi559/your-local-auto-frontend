@@ -21,6 +21,12 @@ const reducer = (state,action) => {
             return { ...state, customers: action.payload };
         case 'UPDATE_CUSTOMER':
             return { ...state, customer: action.payload };
+        case "UPDATE_APPOINTMENT_CALENDAR":
+            return { ...state, appointmentCalendar: { ...state.appointmentCalendar, ...action.payload }};
+        case "UPDATE_APPOINTMENTS":
+            return { ...state, appointments: action.payload };
+        case "UPDATE_APPOINTMENT":
+            return { ...state, appointment: action.payload };
         case "UPDATE_SERVICES":
             return { ...state, services: action.payload };
         case "UPDATE_SERVICE":
