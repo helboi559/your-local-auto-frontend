@@ -20,6 +20,7 @@ const initialState = {
     customer:null,
     appointments:[],
     appointmentCalendar:{date:dayjs()},
+    filteredAppointments:[],
     appointment:null,
     services:[],
     service:null,
@@ -33,7 +34,7 @@ export const useValue = () => {
 }
 const ContextProvider = ({children}) => {
     const [state,dispatch] = useReducer(reducer,initialState)
-    // console.log("currentUser",state.currentUser)
+
     useEffect(()=> {
       const currentUser = JSON.parse(localStorage.getItem('currentUser'))
       if(currentUser) {

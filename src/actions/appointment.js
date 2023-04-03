@@ -16,7 +16,8 @@ export const createAppointment = async (appointment, dispatch) => {
             severity: "success",
             message: "Appointment created successfully",
         } });
-        }
+        getAppointments(dispatch);
+    }
     dispatch({ type: "END_LOADING" });
 }
 

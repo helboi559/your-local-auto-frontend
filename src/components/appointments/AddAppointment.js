@@ -1,16 +1,15 @@
 import { Autocomplete, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField } from '@mui/material'
 import { DatePicker, DateTimePicker, MobileDatePicker } from '@mui/x-date-pickers'
-import React, { useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import { createAppointment} from '../../actions/appointment'
 import { useValue } from '../../context/ContextProvider'
-
+import dayjs from 'dayjs'
 const AddAppointment = ({open,handleClose}) => {
-    const {state:{customers,customer,services,service,appointmentCalendar:{date}},dispatch} = useValue()
+    const {state:{customers,customer,services,service,filteredAppointments,appointmentCalendar:{date}},dispatch} = useValue()
     // const [selectedCustomer, setSelectedCustomer] = useState(null);
     // console.log("customers",customers)
-    //when dialog is clicked render the calendar with available timeslots per selected day
-    //take selected customer name and email and phone number and update the state of customer
-    //when time slot is clicked, activate confirm button to the appointment.
+    // disable date if filteredAppointments lenght is greater than 1
+    
     const handleCustChange = (event, newValue) => {
         // setSelectedCustomer(newValue);
         dispatch({type:'UPDATE_CUSTOMER',payload:newValue})
@@ -27,12 +26,15 @@ const AddAppointment = ({open,handleClose}) => {
             date:date.$d,
             jobDescription:service.jobDescription,
             custName:customer.custName,
-            custEmail:customer.custEmail,
+            apptEmail:customer.custEmail,
             plannedTime:service.plannedTime,
             partsCost:service.partsCost,
         }
         console.log("appointment",appointment)
         createAppointment(appointment,dispatch)
+        dispatch({type:'UPDATE_CUSTOMER',payload:null})
+        dispatch({type:'UPDATE_SERVICE',payload:null})
+        handleClose()
         // console.log("service",service)
     }
     // console.log("appointments",appointments)
@@ -83,30 +85,48 @@ const AddAppointment = ({open,handleClose}) => {
                         </div>
                     )}
                 />
-                <DatePicker
-                    label="Appointment Date"
-                    value={date}
-                    onChange={(newDate) => {
-                        dispatch({type:'UPDATE_APPOINTMENT_CALENDAR',payload:{date:newDate}})
-                    }}
-                    
-                />
+                
                 {/* <MobileDatePicker/> */}
                 
                 
                
             </DialogContent>
+            <DialogContent dividers>
+             <DatePicker
+                label="Appointment Date"
+                value={date}
+                onChange={(newDate) => {
+                    dispatch({type:'UPDATE_APPOINTMENT_CALENDAR',payload:{date:newDate}})
+                }}
+                shouldDisableDate={(date) => {
+                    return filteredAppointments.filter(appointment => {
+                        return dayjs(appointment.date).format('YYYY-MM-DD') === date.format('YYYY-MM-DD')
+                    }).length >= 1
+                }}
+                // slotProps={{
+                //     textField: {
+                //         helperText: 'Error date',
+                //     },
+                // }}
                 
-                <DialogActions>
-                    <Button type='submit' variant='contained' color='secondary' >
+                
+               
+                    
+            />
+                {/* if full for date notify customer to choose different date */}
+
+            </DialogContent>         
+            <DialogActions>
+                <Button variant="contained" color='secondary'sx={{mr:2}} onClick={handleClose}>Cancel</Button>
+                {/* if customer and service is selected, show the submit button */}
+                {customer && service && (
+                    <Button type='submit' variant='contained' >
                         Submit
-                    </Button>
-                </DialogActions>
-            
+                        </Button>
+                        )}
+            </DialogActions>
         </form>
-        <DialogActions>
-            <Button onClick={handleClose}>Cancel</Button>
-        </DialogActions>
+    
         
     </Dialog>
   )

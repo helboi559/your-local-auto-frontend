@@ -1,3 +1,5 @@
+import dayjs from "dayjs"
+
 const reducer = (state,action) => {
     switch(action.type) {
         case "OPEN_LOGIN":
@@ -27,6 +29,8 @@ const reducer = (state,action) => {
             return { ...state, appointments: action.payload };
         case "UPDATE_APPOINTMENT":
             return { ...state, appointment: action.payload };
+        case "UPDATE_FILTERED_APPOINTMENTS":
+            return {...state , filteredAppointments: filterAppointmentsByDate(state.appointments, state.appointmentCalendar.date)}
         case "UPDATE_SERVICES":
             return { ...state, services: action.payload };
         case "UPDATE_SERVICE":
@@ -37,3 +41,23 @@ const reducer = (state,action) => {
 }
 
 export default reducer
+
+// function to filter appointments by only those that are on the same date as the calendar
+const filterAppointmentsByDate = (appointments, date) => {
+    
+    let filteredAppointments = appointments;
+    // console.log("appointments",appointments)
+    // console.log("filteredAppointments",filteredAppointments)
+    if (date) {
+        filteredAppointments = appointments.filter(appointment => {
+            return dayjs(appointment.date).format('YYYY-MM-DD') === date.format('YYYY-MM-DD')
+        })
+    }
+    // console.log("appointments",appointments)
+    // console.log("filteredAppointments",filteredAppointments)
+    return filteredAppointments;
+  
+}
+
+// disable date based on the length of the filtered appointments array
+

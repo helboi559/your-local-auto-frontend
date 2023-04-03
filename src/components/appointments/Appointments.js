@@ -1,5 +1,6 @@
 import { Add, CalendarMonth } from '@mui/icons-material'
 import { Box, Container, Fab, Typography } from '@mui/material'
+import { DatePicker } from '@mui/x-date-pickers'
 import React, { useEffect, useState } from 'react'
 import { getAppointments } from '../../actions/appointment'
 import { getCustomers } from '../../actions/customer'
@@ -9,7 +10,7 @@ import AddAppointment from './AddAppointment'
 
 const Appointments = () => {
   const [open, setOpen] = useState(false)
-  const {state:{services,appointments},dispatch} = useValue()
+  const {state:{services,appointments,filteredAppointments,appointmentCalendar:{date}},dispatch} = useValue()
   const handleClick = () => {
     setOpen(true)
     fetchServices(dispatch)
@@ -19,10 +20,14 @@ const Appointments = () => {
     setOpen(false)
   }
   useEffect(() => {
+    // if date matches then filter appointments
+    dispatch({type:'UPDATE_FILTERED_APPOINTMENTS',payload:appointments});
+
     if(appointments.length === 0) getAppointments(dispatch);
-  }, [appointments])
+  }, [appointments,date])
   // console.log("services",services)
-  console.log("appointments",appointments)
+  // console.log("appointments2",appointments)
+  console.log("filteredAppointments2",filteredAppointments)
   return (
     <Box
     sx={{
@@ -59,6 +64,14 @@ const Appointments = () => {
           </Fab> */}
           <AddAppointment open={open} handleClose={handleClose}/>
         </Container>
+        <DatePicker
+        label="Appointment Date"
+        value={date}
+        onChange={(newDate) => {
+            dispatch({type:'UPDATE_APPOINTMENT_CALENDAR',payload:{date:newDate}})
+        }}
+        />
+        
     </Box>
   )
 }
