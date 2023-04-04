@@ -2,6 +2,7 @@ import { Box, Typography } from '@mui/material'
 import React from 'react'
 
 const Service = () => {
+  
   return (
     <Box
     sx={{
@@ -14,7 +15,7 @@ const Service = () => {
         component='h4'
         sx={{textAlign:'center',mt:15,mb:3}}
         >
-            Service
+            Service Jobs
         </Typography>
     </Box>
   )

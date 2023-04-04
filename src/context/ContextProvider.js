@@ -24,6 +24,7 @@ const initialState = {
     appointment:null,
     services:[],
     service:null,
+    facilityThreshold:1,
     
 }
 

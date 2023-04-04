@@ -136,14 +136,16 @@ const Customers = () => {
           top: params.isFirstVisible ? 0 : 5,
           bottom: params.isLastVisible ? 0 : 5,
         })}
-        // sx={{
-        //   [`& .${gridClasses.row}`]: {
-        //     bgcolor: (theme) =>
-        //       theme.palette.mode === 'dark' ? 'rgb(38, 50, 56)' : '#fff',
-        //   },
-        // }}
-        
-        // onCellEditStop={(params) => setRowId(params.id)}
+        initialState={{
+          columns: {
+            columnVisibilityModel: {
+              _id : false,
+            }
+          },
+          pagination: {
+            pageSize: 5,
+          },
+        }}
         onCellEditStart={(params) => setRowId(params.id)}
         disableColumnFilter
         disableColumnSelector

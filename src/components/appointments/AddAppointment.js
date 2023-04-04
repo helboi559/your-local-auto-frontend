@@ -5,11 +5,9 @@ import { createAppointment} from '../../actions/appointment'
 import { useValue } from '../../context/ContextProvider'
 import dayjs from 'dayjs'
 const AddAppointment = ({open,handleClose}) => {
-    const {state:{customers,customer,services,service,filteredAppointments,appointmentCalendar:{date}},dispatch} = useValue()
+    const {state:{customers,customer,services,service,facilityThreshold,filteredAppointments,appointmentCalendar:{date}},dispatch} = useValue()
     // const [selectedCustomer, setSelectedCustomer] = useState(null);
     // console.log("customers",customers)
-    // disable date if filteredAppointments lenght is greater than 1
-    
     const handleCustChange = (event, newValue) => {
         // setSelectedCustomer(newValue);
         dispatch({type:'UPDATE_CUSTOMER',payload:newValue})
@@ -87,39 +85,36 @@ const AddAppointment = ({open,handleClose}) => {
                 />
                 
                 {/* <MobileDatePicker/> */}
-                
-                
-               
             </DialogContent>
             <DialogContent dividers>
-             <DatePicker
+            <DatePicker
                 label="Appointment Date"
                 value={date}
                 onChange={(newDate) => {
                     dispatch({type:'UPDATE_APPOINTMENT_CALENDAR',payload:{date:newDate}})
                 }}
+                disablePast
+                //disable date if filteredAppointments length is greater than 1
                 shouldDisableDate={(date) => {
                     return filteredAppointments.filter(appointment => {
                         return dayjs(appointment.date).format('YYYY-MM-DD') === date.format('YYYY-MM-DD')
-                    }).length >= 1
+                    }).length > facilityThreshold
                 }}
-                // slotProps={{
-                //     textField: {
-                //         helperText: 'Error date',
-                //     },
-                // }}
-                
-                
-               
-                    
+                //if date is full for date notify customer to choose different date
+                slotProps={{
+                    textField: {
+                        helperText: filteredAppointments.filter(appointment => {
+                            return dayjs(appointment.date).format('YYYY-MM-DD') === date.format('YYYY-MM-DD')
+                        }
+                        ).length > facilityThreshold ? "Date is full, please choose another date" : "Available!",
+                    },
+                }}      
             />
-                {/* if full for date notify customer to choose different date */}
-
             </DialogContent>         
             <DialogActions>
                 <Button variant="contained" color='secondary'sx={{mr:2}} onClick={handleClose}>Cancel</Button>
-                {/* if customer and service is selected, show the submit button */}
-                {customer && service && (
+                {/* if customer/type of service selected and date is available, show submit button */}
+                {customer && service && filteredAppointments.length <= 1 && (
                     <Button type='submit' variant='contained' >
                         Submit
                         </Button>
